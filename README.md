@@ -122,12 +122,19 @@ Changelist:
 
 Files added: <br />
 ```
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+sqlite-jdbc-sqlcipher.iml
 shell/Windows/x86_64/libeay32.dll
 shell/Windows/x86_64/sqlcipher.exe
 src/main/java/module-info.java
 ```
 Files modified: <br />
 ```
+.gitignore
 README.md
 pom.xml
 src/main/java/org/sqlite/SQLiteConfig.java
