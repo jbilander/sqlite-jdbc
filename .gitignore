@@ -6,7 +6,7 @@
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
-*.exe
+#*.exe
 
 ### MacOs ###
 .DS_Store
