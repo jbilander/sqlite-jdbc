@@ -244,32 +244,12 @@ public class SQLiteConfig
         SHARED_CACHE("shared_cache", "Enable SQLite Shared-Cache mode, native driver only", OnOff),
         LOAD_EXTENSION("enable_load_extension", "Enable SQLite load_extention() function, native driver only", OnOff),
 
-        /** region SQLCipher PRAGMAS added by jbilander */
-        // region SQLCipher PRAGMAS
+        //SQLCipher PRAGMA added by jbilander */
         KEY("key"),
         // [key]: Key used for encrypting/decrypting database, as string 'passphrase'
         // which is converted to a key using PBKDF2 key derivation, or
         // a 64 character hex string "x'2DD29CA851E7B56E4697B0E1F08507293D761A05CE4D1B628663F411A8086D99'",
         // which will be converted directly to 32 bytes (256 bits) of key data.
-        REKEY("rekey"),
-        // [rekey]: Changes key on an existing encrypted database. Database must first be unlocked with PRAGMA key.
-        CIPHER("cipher"),
-        // [cipher]: SQLCipher uses aes-256-cbc as the default cipher and mode of operation,
-        // must be called after PRAGMA key.
-        // It is possible to change this, though not generally recommended.
-        // If a non-default value is used to create a database,
-        // it must also be called every time that database is opened.
-        KDF_ITER("kdf_iter"),
-        // [kdf_iter]: PBKDF2 iterations, default is 64 000 and must be called after PRAGMA key
-        // and before the first actual database operation or it will have no effect.
-        // If a non-default value is used to create a database,
-        // it must also be called every time that database is opened.
-        CIPHER_PAGE_SIZE("cipher_page_size"),
-        // [cipher_page_size]: Default page size is 1024. Must be called after PRAGMA key and
-        // before the first actual database operation or it will have no effect.
-        // If a non-default value is used to create a database,
-        // it must also be called every time that database is opened.
-        // endregion SQLCipher PRAGMAS
 
         // Pragmas that can be set after opening the database
         CACHE_SIZE("cache_size"),
@@ -328,30 +308,10 @@ public class SQLiteConfig
         }
     }
 
-    /** region SQLCipher PRAGMAS setters added by jbilander */
-    // region SQLCipher PRAGMAS setters
-
+    /** SQLCipher PRAGMA setter added by jbilander */
     public void setKey(String key) {
         setPragma(Pragma.KEY, key);
     }
-
-    public void setReKey(String rekey) {
-        setPragma(Pragma.REKEY, rekey);
-    }
-
-    public void setChiper(String cipher) {
-        setPragma(Pragma.CIPHER, cipher);
-    }
-
-    public void setKdfIter(int kdfIter) {
-        set(Pragma.KDF_ITER, kdfIter);
-    }
-
-    public void setCipherPageSize(int cipherPageSize) {
-        set(Pragma.CIPHER_PAGE_SIZE, cipherPageSize);
-    }
-
-    // endregion SQLCipher PRAGMAS setters
 
     /**
      * Sets the open mode flags.

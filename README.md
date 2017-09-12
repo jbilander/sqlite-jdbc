@@ -34,30 +34,23 @@ To use the module in your project add this to your `module-info.java` <br />
         requires sqlite.jdbc;
 <br />
 
-These are the relevant pragmas that are implemented in this version:
+This is the only sqlcipher-pragma implemented in this version:
 - key <br /><br />
 Key used for encrypting/decrypting database, as string "passphrase"
 which is converted to a key using PBKDF2 key derivation, or
 a 64 character hex string i.e. "x'2DD29CA851E7B56E4697B0E1F08507293D761A05CE4D1B628663F411A8086D99'",
 which will be converted directly to 32 bytes (256 bits) of key data.
-- rekey <br /><br />
-Changes key on an existing encrypted database. Database must first be unlocked with PRAGMA key.
-- cipher <br /><br />
-SQLCipher uses aes-256-cbc as the default cipher and mode of operation,
-must be called after PRAGMA key.
-It is possible to change this, though not generally recommended.
-If a non-default value is used to create a database,
-it must also be called every time that database is opened.
-- kdf_iter <br /><br />
-PBKDF2 iterations, default is 64 000 and must be called after PRAGMA key
-and before the first actual database operation or it will have no effect.
-If a non-default value is used to create a database,
-it must also be called every time that database is opened.
-- cipher_page_size <br /><br />
-Default page size is 1024. Must be called after PRAGMA key and
-before the first actual database operation or it will have no effect.
-If a non-default value is used to create a database,
-it must also be called every time that database is opened.
+
+To use the hex-string as key in Java:
+
+    final String KEY = "\"x'2DD29CA851E7B56E4697B0E1F08507293D761A05CE4D1B628663F411A8086D99'\"";
+    dataSource.getConfig().setKey(KEY);
+
+To rekey from inside application, database must first be unlocked with PRAGMA key, then execute a statement with PRAGMA rekey like this:
+
+    stmnt.executeUpdate("PRAGMA rekey = 'new_passphrase'");
+
+Other PRAGMAS and syntax you can find here [sqlcipher-api](https://www.zetetic.net/sqlcipher/sqlcipher-api/)
 
 The included 64-bit windows ddl is currently compiled with static linking `--enable-static=yes` and `--enable-tempstore=yes` and these CFLAGS set because that is how I prefer it:
 
@@ -84,6 +77,9 @@ The included 64-bit windows ddl is currently compiled with static linking `--ena
 ```
 
 If your preferences are otherwise then just go ahead and build your own dll and replace the current one.
+
+Here's my tutorial on how to build a dll for 64-bit Windows x86_64 with sqlcipher support:
+https://github.com/jbilander/sqlite-jdbc/blob/master/README_BUILD_DLL.md
 
 If you want to fiddle with a database from the cmd then use the sqlcipher.exe with the libeay32.dll, copy both files to appropriate location.
 
@@ -131,12 +127,15 @@ sqlite-jdbc-sqlcipher.iml
 shell/Windows/x86_64/libeay32.dll
 shell/Windows/x86_64/sqlcipher.exe
 src/main/java/module-info.java
+lib/inc_win/NativeDB.h
+README_BUILD_DLL.md
 ```
 Files modified: <br />
 ```
 .gitignore
 README.md
 pom.xml
+src/main/java/org/sqlite/core/NativeDB.c
 src/main/java/org/sqlite/SQLiteConfig.java
 ```
 Files replaced: <br />
