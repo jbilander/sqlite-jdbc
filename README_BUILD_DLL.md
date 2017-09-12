@@ -220,9 +220,9 @@ gcc -I inc_win -c -o NativeDB.o NativeDB.c
 
 j. Build the dll
 
-Copy sqlite3.o and NativeDB.o to c:\sqlcipher\.libs
+Copy sqlite3.o and NativeDB.o to c:\sqlcipher\\.libs
 
-content of c:\sqlcipher\.libs:
+content of c:\sqlcipher\\.libs:
 
 * libsqlcipher.a
 * libsqlcipher.la
