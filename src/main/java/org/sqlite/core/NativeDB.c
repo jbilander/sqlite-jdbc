@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
+//#include <assert.h>
 #include "NativeDB.h"
 #include "sqlite3.h"
 
@@ -292,7 +292,7 @@ static void xCall(
     struct UDFData *udf = 0;
 
     udf = (struct UDFData*)sqlite3_user_data(context);
-    assert(udf);
+    //assert(udf);
     (*udf->vm)->AttachCurrentThread(udf->vm, (void **)&env, 0);
     if (!func) func = udf->func;
 
@@ -375,7 +375,7 @@ void xFinal(sqlite3_context *context)
     if (!mth) mth = (*env)->GetMethodID(env, aclass, "xFinal", "()V");
 
     func = sqlite3_aggregate_context(context, sizeof(jobject));
-    assert(*func); // disaster
+    //assert(*func); // disaster
 
     xCall(context, 0, 0, *func, mth);
 
