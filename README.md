@@ -3,7 +3,7 @@ Fork Notes
 This is a fork of a [SQLite JDBC driver](https://github.com/xerial/sqlite-jdbc) that has been modified to work with
 [SQLCipher](https://github.com/sqlcipher/sqlcipher), a version of SQLite modified to support encryption.
 This version is adapted to Java 9 and the use of the new module feature (project jigsaw).
-The only native binaries included here currently are for 64-bit Windows (x86_64). Other platforms (64-bit MacOSX and 64-bit Linux) will be added later on.
+The only native binaries included here currently are for 64-bit Windows (x86_64) and 64-bit MacOSX (x86_64), 64-bit Linux will be added soon.
 At least that is the plan. A lot of files has been removed to reduce the repo-clutter in this version. 
 See changelist for a complete list of changes further down.
 
@@ -81,8 +81,12 @@ If your preferences are otherwise then just go ahead and build your own dll and 
 Here's my tutorial on how to build a dll for 64-bit Windows x86_64 with sqlcipher support:
 https://github.com/jbilander/sqlite-jdbc/blob/master/README_BUILD_DLL.md
 
-If you want to fiddle with a database from the cmd then use the sqlcipher.exe with the libeay32.dll, copy both files to appropriate location.
+Here's my tutorial on how to build a jnilib for 64-bit MacOSX x86_64 with sqlcipher support:
+https://github.com/jbilander/sqlite-jdbc/blob/master/README_BUILD_JNILIB.md
 
+Windows: If you want to fiddle with a database from the cmd then use the shell/Windows/x86_64 sqlcipher.exe with the libeay32.dll, copy both files to appropriate location.
+
+MacOSX: If you want to fiddle with a database from the cmd then use the shell/Mac/x86_64/sqlcipher, copy file to appropriate location.
 
     sqlcipher test.db
     sqlite>PRAGMA key = 'passphrase';
@@ -126,9 +130,12 @@ Files added: <br />
 sqlite-jdbc-sqlcipher.iml
 shell/Windows/x86_64/libeay32.dll
 shell/Windows/x86_64/sqlcipher.exe
+shell/Mac/x86_64/sqlcipher
 src/main/java/module-info.java
 lib/inc_win/NativeDB.h
+lib/inc_mac/NativeDB.h
 README_BUILD_DLL.md
+README_BUILD_JNILIB.md
 ```
 Files modified: <br />
 ```
@@ -141,6 +148,7 @@ src/main/java/org/sqlite/SQLiteConfig.java
 Files replaced: <br />
 ```
 src/main/resources/org/sqlite/native/Windows/x86_64/sqlitejdbc.dll
+src/main/resources/org/sqlite/native/Mac/x86_64/libsqlitejdbc.jnilib
 ```
 Files removed: <br />
 ```
