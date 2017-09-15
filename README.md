@@ -26,7 +26,7 @@ To include the jar in your project through maven:
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc-sqlcipher</artifactId>
-            <version>3.20.1-SNAPSHOT</version>
+            <version>3.20.0</version>
         </dependency>
 
 To use the module in your project add this to your `module-info.java` <br />
@@ -144,6 +144,7 @@ README.md
 pom.xml
 src/main/java/org/sqlite/core/NativeDB.c
 src/main/java/org/sqlite/SQLiteConfig.java
+src/main/java/org/sqlite/SQLiteJDBCLoader.java
 ```
 Files replaced: <br />
 ```

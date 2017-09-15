@@ -57,7 +57,7 @@ f. install som dev-utils
 
 g. run ./configure with the following parameters, alter to your preference...
 
-./configure --build=x86_64 --with-crypto-lib=none --disable-tcl --disable-shared --enable-static=yes --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC -DSQLCIPHER_CRYPTO_OPENSSL -DSQLITE_ENABLE_LOAD_EXTENSION=1 -DSQLITE_HAVE_ISNAN -DSQLITE_HAVE_USLEEP -DSQLITE_ENABLE_UPDATE_DELETE_LIMIT -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_CORE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_STAT2 -DSQLITE_THREADSAFE=1 -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_FILE_PERMISSIONS=0666 -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_DEFAULT_FOREIGN_KEYS=1 -I/c/opensslbuild64/include /c/sqlcipher/libeay32.dll -L/c/sqlcipher/ -static-libgcc" LDFLAGS="-leay32"
+./configure --build=x86_64 --with-crypto-lib=none --disable-tcl --disable-shared --enable-static=yes --enable-tempstore=yes CFLAGS="-DSQLITE_HAS_CODEC -DSQLCIPHER_CRYPTO_OPENSSL -DSQLITE_ENABLE_LOAD_EXTENSION=1 -DSQLITE_HAVE_ISNAN -DSQLITE_HAVE_USLEEP -DSQLITE_ENABLE_UPDATE_DELETE_LIMIT -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_CORE -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_STAT2 -DSQLITE_THREADSAFE=1 -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_FILE_PERMISSIONS=0666 -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_DEFAULT_FOREIGN_KEYS=1 -I/c/opensslbuild64/include -L/c/sqlcipher/ -static-libgcc" LDFLAGS="-leay32"
 
 Should give similar to this output:
 
@@ -249,6 +249,12 @@ gcc -DSQLITE_HAS_CODEC -DSQLCIPHER_CRYPTO_OPENSSL -DSQLITE_HAVE_ISNAN -DSQLITE_H
 
 
 sqlite3.dll is now created in c:\sqlcipher, rename to sqlitejdbc.dll and copy over to sqlite-jdbc\src\main\resources\org\sqlite\native\Windows\x86_64
+
+Remember to include the libeay32.dll into your project (since sqlitejdbc.dll depends on it), typically the bin-folder is a suitable place to put it in if building a native image with the jlink-command.
+Otherwise you will get an UnsatisfiedLinkError like this:
+
+    Failed to load native library:sqlite-3.20.0-66f1d3a4-e58b-48af-bf4b-b35b6c162298-sqlitejdbc.dll. osinfo: Windows/x86_64
+    java.lang.UnsatisfiedLinkError: C:\Users\Username\AppData\Local\Temp\sqlite-3.20.0-66f1d3a4-e58b-48af-bf4b-b35b6c162298-sqlitejdbc.dll: Can't find dependent libraries
 
 That's all folks
 
