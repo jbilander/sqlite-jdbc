@@ -168,7 +168,7 @@ Should give something similar to this output:
 
 * make clean
 * make sqlite3.c <br />
-(this creates sqlite.o)
+(this creates sqlite3.o)
 
 generate sqlcipher executable:
 
