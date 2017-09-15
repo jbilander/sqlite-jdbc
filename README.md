@@ -34,6 +34,13 @@ To use the module in your project add this to your `module-info.java` <br />
         requires sqlite.jdbc;
 <br />
 
+For Windows: Remember to include the libeay32.dll (project location: shell/Windows/x86_64/libeay32.dll) into your project (since sqlitejdbc.dll depends on it), typically the bin-folder is a suitable place to put it in if building a native image with the jlink-command.
+Otherwise you will get an UnsatisfiedLinkError like this:
+
+    Failed to load native library:sqlite-3.20.0-66f1d3a4-e58b-48af-bf4b-b35b6c162298-sqlitejdbc.dll. osinfo: Windows/x86_64
+    java.lang.UnsatisfiedLinkError: C:\Users\Username\AppData\Local\Temp\sqlite-3.20.0-66f1d3a4-e58b-48af-bf4b-b35b6c162298-sqlitejdbc.dll: Can't find dependent libraries
+
+
 This is the only sqlcipher-pragma implemented in this version:
 - key <br /><br />
 Key used for encrypting/decrypting database, as string "passphrase"
