@@ -203,7 +203,6 @@ Should give similar to this output:
 
 h. Run the following commands
 * make clean
-* make sqlite3.c
 * make
 
 Now in order to create the dll we need first to compile NativeDB.c to get NativeDB.o in the sqlite-jdbc project.

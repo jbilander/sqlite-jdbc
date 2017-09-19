@@ -3,8 +3,7 @@ Fork Notes
 This is a fork of a [SQLite JDBC driver](https://github.com/xerial/sqlite-jdbc) that has been modified to work with
 [SQLCipher](https://github.com/sqlcipher/sqlcipher), a version of SQLite modified to support encryption.
 This version is adapted to Java 9 and the use of the new module feature (project jigsaw).
-The only native binaries included here currently are for 64-bit Windows (x86_64) and 64-bit MacOSX (x86_64), 64-bit Linux will be added soon.
-At least that is the plan. A lot of files has been removed to reduce the repo-clutter in this version. 
+The native binaries included here currently are for 64-bit Windows (x86_64), 64-bit MacOSX (x86_64) and 64-bit Linux. A lot of files has been removed to reduce the repo-clutter in this version. 
 See changelist for a complete list of changes further down.
 
 To create/open an encrypted database, try something like:
@@ -91,9 +90,14 @@ https://github.com/jbilander/sqlite-jdbc/blob/master/README_BUILD_DLL.md
 Here's my tutorial on how to build a jnilib for 64-bit MacOSX x86_64 with sqlcipher support:
 https://github.com/jbilander/sqlite-jdbc/blob/master/README_BUILD_JNILIB.md
 
+Here's my tutorial on how to build a so for 64-bit Linux x86_64 with sqlcipher support:
+https://github.com/jbilander/sqlite-jdbc/blob/master/README_BUILD_SO.md
+
 Windows: If you want to fiddle with a database from the cmd then use the shell/Windows/x86_64 sqlcipher.exe with the libeay32.dll, copy both files to appropriate location.
 
 MacOSX: If you want to fiddle with a database from the cmd then use the shell/Mac/x86_64/sqlcipher, copy file to appropriate location.
+
+Linux: If you want to fiddle with a database from the cmd then use the shell/Linux/x86_64/sqlcipher, copy file to appropriate location.
 
     sqlcipher test.db
     sqlite>PRAGMA key = 'passphrase';
@@ -138,11 +142,14 @@ sqlite-jdbc-sqlcipher.iml
 shell/Windows/x86_64/libeay32.dll
 shell/Windows/x86_64/sqlcipher.exe
 shell/Mac/x86_64/sqlcipher
+shell/Linux/x86_64/sqlcipher
 src/main/java/module-info.java
 lib/inc_win/NativeDB.h
 lib/inc_mac/NativeDB.h
+lib/inc_linux/NativeDB.h
 README_BUILD_DLL.md
 README_BUILD_JNILIB.md
+README_BUILD_SO.md
 ```
 Files modified: <br />
 ```
@@ -157,6 +164,7 @@ Files replaced: <br />
 ```
 src/main/resources/org/sqlite/native/Windows/x86_64/sqlitejdbc.dll
 src/main/resources/org/sqlite/native/Mac/x86_64/libsqlitejdbc.jnilib
+src/main/resources/org/sqlite/native/Linux/x86_64/libsqlitejdbc.so
 ```
 Files removed: <br />
 ```

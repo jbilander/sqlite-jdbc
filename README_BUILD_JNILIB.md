@@ -167,27 +167,26 @@ Should give something similar to this output:
     config.status: executing libtool commands
 
 * make clean
-* make sqlite3.c <br />
-(this creates sqlite3.o)
+* make <br />
 
 generate sqlcipher executable:
 
 gcc -DSQLITE_HAS_CODEC -DSQLCIPHER_CRYPTO_OPENSSL -DSQLITE_HAVE_ISNAN -DSQLITE_HAVE_USLEEP -DSQLITE_CORE -DSQLITE_THREADSAFE=1 -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_DEFAULT_FILE_PERMISSIONS=0666 -DSQLITE_MAX_VARIABLE_NUMBER=250000 -DSQLITE_DEFAULT_FOREIGN_KEYS=1 -I/usr/local/ssl/macosx-x86_64/include -arch x86_64 -DSQLITE_OS_UNIX=1 -I. -I/tmp/sqlcipher/src -I/tmp/sqlcipher/ext/rtree -I/tmp/sqlcipher/ext/icu -I/tmp/sqlcipher/ext/fts3 -I/tmp/sqlcipher/ext/async -I/tmp/sqlcipher/ext/session -D_HAVE_SQLITE_CONFIG_H -DBUILD_sqlite -DNDEBUG -DSQLITE_THREADSAFE=1 -DSQLITE_ENABLE_LOAD_EXTENSION=1 -DSQLITE_ENABLE_UPDATE_DELETE_LIMIT -DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS5 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_RTREE -DSQLITE_ENABLE_STAT2 -DHAVE_READLINE=0 -DHAVE_EDITLINE=1 -DSQLITE_ENABLE_JSON1 -DSQLITE_ENABLE_FTS4 -DSQLITE_ENABLE_EXPLAIN_COMMENTS -DSQLITE_ENABLE_UNKNOWN_SQL_FUNCTION -o sqlcipher /tmp/sqlcipher/src/shell.c  /usr/local/ssl/macosx-x86_64/lib/libcrypto.a sqlite3.o -ledit
 
-Now copy the sqlcipher executable over to sqlite-jdbc/shell/Mac/x86_64
+Now copy the sqlcipher executable over to sqlite-jdbc/shell/Linux/x86_64
 <br />(This is for fiddeling with the database from a terminal should you want to.)
 
 Now go to sqlite-jdbc project and create NativeDB.h:
 
 * mvn compile (so that org.sqlite.core.NativeDB class is generated)
-* javah -classpath target/classes -jni -o lib/inc_mac/NativeDB.h org.sqlite.core.NativeDB <br /><br />
-Run above command from a command prompt with cd sqlite-jdbc project folder, the file NativeDB.h will be generated in the lib/inc_mac-folder.
-* copy folder inc_mac with content to /tmp/sqlcipher<br />
-cp -R inc_mac /tmp/sqlcipher/inc_mac
+* javah -classpath target/classes -jni -o lib/inc_linux/NativeDB.h org.sqlite.core.NativeDB <br /><br />
+Run above command from a command prompt with cd sqlite-jdbc project folder, the file NativeDB.h will be generated in the lib/inc_linux-folder.
+* copy folder inc_linux with content to /tmp/sqlcipher<br />
+cp -R inc_linux /tmp/sqlcipher/inc_linux
 * copy file src/main/java/org/sqlite/core/NativeDB.c to /tmp/sqlcipher <br /><br />
 cp src/main/java/org/sqlite/core/NativeDB.c /tmp/sqlcipher
 * cd to /tmp/sqlcipher and compile NativeDB.c into NativeDB.o: <br /><br />
-gcc -I inc_mac -c -o NativeDB.o NativeDB.c
+gcc -I inc_linux -Wall -fPIC -c -o NativeDB.o NativeDB.c
 
 c. Finally, Build the jnilib:
 * gcc -dynamiclib -o libsqlitejdbc.jnilib /usr/local/ssl/macosx-x86_64/lib/libcrypto.a sqlite3.o NativeDB.o
