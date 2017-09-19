@@ -3,7 +3,7 @@ Fork Notes
 This is a fork of a [SQLite JDBC driver](https://github.com/xerial/sqlite-jdbc) that has been modified to work with
 [SQLCipher](https://github.com/sqlcipher/sqlcipher), a version of SQLite modified to support encryption.
 This version is adapted to Java 9 and the use of the new module feature (project jigsaw).
-The native binaries included here currently are for 64-bit Windows (x86_64), 64-bit MacOSX (x86_64) and 64-bit Linux. A lot of files has been removed to reduce the repo-clutter in this version. 
+The native binaries included here currently are for 64-bit Windows (x86_64), 64-bit MacOSX (x86_64) and 64-bit Linux (x86_64). A lot of files has been removed to reduce the repo-clutter in this version. 
 See changelist for a complete list of changes further down.
 
 To create/open an encrypted database, try something like:
