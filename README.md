@@ -8,15 +8,26 @@ See changelist for a complete list of changes further down.
 
 To create/open an encrypted database, try something like:
 ```
-    private SQLiteConnectionPoolDataSource dataSource = new SQLiteConnectionPoolDataSource();
-    private MiniConnectionPoolManager miniConnectionPoolManager = MiniConnectionPoolManager.getInstance();
     
-    ConnectionPoolHelper() {
+    public enum ConnectionPoolHelper {
+        INSTANCE;
     
-        dataSource.setUrl(Util.JDBC_URL);
-        dataSource.getConfig().setKey("passphrase"); // <-- SET YOUR PASSPHRASE HERE!
-        miniConnectionPoolManager.setConnectionPoolDataSource(dataSource);
+        private final SQLiteConnectionPoolDataSource dataSource = new SQLiteConnectionPoolDataSource();
+    
+        ConnectionPoolHelper() {
+            dataSource.setUrl(Util.JDBC_URL);
+            dataSource.getConfig().setKey("passphrase"); // <-- SET YOUR PASSPHRASE HERE!
+        }
+    
+        public static ConnectionPoolHelper getInstance() {
+            return INSTANCE;
+        }
+    
+        public SQLiteConnectionPoolDataSource getDataSource() {
+            return dataSource;
+        }
     }
+    
 ```
 
 To include the jar in your project through maven:
