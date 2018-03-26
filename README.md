@@ -69,7 +69,7 @@ To rekey from inside application, database must first be unlocked with PRAGMA ke
 
 Other PRAGMAS and syntax you can find here [sqlcipher-api](https://www.zetetic.net/sqlcipher/sqlcipher-api/)
 
-The included 64-bit windows ddl is currently compiled with static linking `--enable-static=yes` and `--enable-tempstore=yes` and these CFLAGS set because that is how I prefer it:
+The included 64-bit windows dll is currently compiled with static linking `--enable-static=yes` and `--enable-tempstore=yes` and these CFLAGS set because that is how I prefer it:
 
 ```
 -DSQLITE_HAS_CODEC 
